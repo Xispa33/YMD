@@ -9,6 +9,7 @@ brew install ffmpeg <br>
 1 - Write a suitable readme
   - setup 
   - description of the sofware
+
 2 - Fonctional improvements:
     - add a quit button
     - mp3/mp4 management
