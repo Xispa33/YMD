@@ -16,4 +16,5 @@ brew install ffmpeg <br>
     - check shell command
     - comments
     - push + tag
+
 3 - Check how to make an exe
