@@ -1,10 +1,19 @@
 # MP3-Downloader
-Download Youtube mp3 songs using Terminal. Working on MacOS X <br>
-SETUP <br>
-Install brew: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null" <br>
-Install youtube-dl package: brew install youtube-dl <br>
-brew install ffmpeg <br>
+This GUI allows downloading mp3/mp4 videos. This tool was developped using Qt. <br>
 
+# SETUP
+On a MacOS:
+1 - Install brew: 
+```
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null"
+```
+2 - Install youtube-dl and ffmpeg:
+```
+brew install youtube-dl
+```
+```
+brew install ffmpeg
+```
 
 1 - Write a suitable readme
   - setup 
