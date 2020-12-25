@@ -1,12 +1,15 @@
 #include "fenetreprincipale.h"
-#define WIDTH (650)
-#define HEIGHT (500)
-//#define BASE_MP3 ("youtube-dl --extract-audio --audio-format mp3")
-//#define BASE_MP4 ("youtube-dl -f mp4")
 
 /**
- * Constructeur
+ * Window dimensions
 */
+#define WIDTH (650)
+#define HEIGHT (500)
+
+/**
+ * @brief FenetrePrincipale::FenetrePrincipale
+ * Constructor
+ */
 FenetrePrincipale::FenetrePrincipale() : QWidget()
 {
         Window_Init();
@@ -16,9 +19,12 @@ FenetrePrincipale::FenetrePrincipale() : QWidget()
         connect(addButton, SIGNAL(clicked()), this, SLOT(addMedia()));
 
         /* Clicking on Browse button */
+        /* This button will pop up a window to select the destination of
+        the downloaded files */
         connect(browseButton, SIGNAL(clicked()), this, SLOT(ChooseDestination()));
 
         /* Clicking on Download button */
+        /* This button starts the download of the files */
         connect(downloadButton, SIGNAL(clicked()), this, SLOT(ExecuteCommand()));
 
         /* Clicking on Quit button */
@@ -26,8 +32,9 @@ FenetrePrincipale::FenetrePrincipale() : QWidget()
 }
 
 /**
- * Initialise tous les boutons
-*/
+ * @brief FenetrePrincipale::Buttons_Init
+ * Service to initialize of all buttons and layouts
+ */
 void FenetrePrincipale::Buttons_Init()
 {
     layoutPrincipal = new QVBoxLayout;
@@ -89,36 +96,55 @@ void FenetrePrincipale::Buttons_Init()
 }
 
 /**
- * Initialise la fenêtre principale
-*/
+ * @brief FenetrePrincipale::Window_Init
+ * Service to initialize the main window title
+ */
 void FenetrePrincipale::Window_Init()
 {
     this->setWindowTitle(QApplication::translate("toplevel", "MusicDownloader"));
 }
 
-
+/**
+ * @brief FenetrePrincipale::addMedia
+ * Service to add a media to the list of medias to download
+ */
 void FenetrePrincipale::addMedia()
 {
     QString song;
     song = url->text();
 
+    /* Adding the song to the media list */
+    (void) mediasList->insert(mediasList->end(), song, listeType->currentText());
+    /*
     listeType->currentText() == "MP3" ? (void) mediasList->insert(mediasList->end(), song, "MP3") :\
                                         (void) mediasList->insert(mediasList->end(), song, "MP4");
-
+    */
+    /* Clearing the message in the middle box when at least 1 media has to be downloaded */
     if (mediasList->size() == 1) {
         text->clear();
     }
+    /* Add the url of the song/video in the middle box */
     text->append(song);
 
+    /* Clearing the url text box */
+    url->clear();
     this->repaint();
 }
 
+/**
+ * @brief FenetrePrincipale::ChooseDestination
+ * Service to setting the files' future location
+ */
 void FenetrePrincipale::ChooseDestination()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/Users", QFileDialog::ShowDirsOnly);
     browseEdit->setText(dir);
 }
 
+/**
+ * @brief FenetrePrincipale::ExecuteCommand
+ * Service to download the list of medias
+ */
 void FenetrePrincipale::ExecuteCommand()
 {
     QProcess process;
@@ -127,18 +153,17 @@ void FenetrePrincipale::ExecuteCommand()
     //Chemin en dur ici, à modifier surement
     QString media_path = "cd " + browseEdit->text() + "; PATH=${PATH}:/usr/local/bin:/usr/local/bin/; ";
 
-    int k = 0;
+    //int k = 0;
+    /* Loop in the medias list */
     for (media = mediasList->begin(); media != mediasList->end(); ++media){
-        qDebug() << "Element numero " << k << " = [" << media.key() << ", " << media.value() << "] \n"<< endl;
-        k++;
-
+        //qDebug() << "Element numero " << k << " = [" << media.key() << ", " << media.value() << "] \n"<< endl;
+        //k++;
+        /* Executing the youtube-dl command inside a shell process */
         process.start("sh");
+
         command_string = media_path;
-
-        //Chemin en dur ici, à modifier surement
-        command_string += media.value() == "MP3" ? "youtube-dl --extract-audio --audio-format mp3 \"" : "/usr/local/bin/youtube-dl -f mp4 \"";
+        command_string += media.value() == "MP3" ? "youtube-dl --extract-audio --audio-format mp3 \"" : "youtube-dl -f mp4 \"";
         command_string += media.key() + "\" ";
-
         command_string += ">> logs.txt 2>&1";
 
         /* Convert QString to *char */
@@ -149,17 +174,23 @@ void FenetrePrincipale::ExecuteCommand()
         process.closeWriteChannel();
         process.waitForFinished();
 
-        qDebug() << command_char_ptr;
+        //qDebug() << command_char_ptr;
         QByteArray output = process.readAll();
         process.close();
 
         command_string = "";
     }
+
+    /* Clearing the medias list to download in the middle box */
     text->clear();
 
     this->repaint();
 }
 
+/**
+ * @brief FenetrePrincipale::Quit
+ * Service to exit the application
+ */
 void FenetrePrincipale::Quit()
 {
     QApplication::quit();
