@@ -1,7 +1,6 @@
-# MP3-Downloader
+# YouTube Media Downloader
 This GUI, running inside a docker container, allows downloading mp3/mp4 videos. <br>
-
-It is 
+ 
 # SETUP
 On a MacOS: <br>
 1 - Install brew: 
