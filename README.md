@@ -1,6 +1,7 @@
 # MP3-Downloader
-This GUI was developped using Qt and allows downloading mp3/mp4 videos. <br>
+This GUI, running inside a docker container, allows downloading mp3/mp4 videos. <br>
 
+It is 
 # SETUP
 On a MacOS: <br>
 1 - Install brew: 
@@ -12,13 +13,4 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install youtube-dl ffmpeg
 ```
 
-3 - Fonctional improvements:
-    - add a quit button
-    - mp3/mp4 management
-    - check shell command
-    - comments
-    - push + tag
-
-4 - Check how to make an exe
-
-5 - Preparation
+3 - Qt needs to be installed
