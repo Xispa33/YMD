@@ -15,7 +15,10 @@ brew install youtube-dl ffmpeg
 
 # USAGE
 Running YMD, the window below should appear.<br>
-<img src="YMD.png" width="200" height="315" /> <br>
+<p align="center">
+<img src="YMD.png" width="200" height="315" />
+</p>
+<br>
 
 1. Field "url" should be filled with the unique youtube url you want to download.<br>
 2. Second field should point to the folder in which you want the video to be downloaded.<br>
