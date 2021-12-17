@@ -14,8 +14,8 @@ brew install youtube-dl ffmpeg
 3 - Qt needs to be installed.
 
 # USAGE
-Running YMD, the window below should appear.
-<img src="YMD.png" width="200" height="315" />
+Running YMD, the window below should appear.<br>
+<img src="YMD.png" width="200" height="315" /> <br>
 
 1. Field "url" should be filled with the unique youtube url you want to download.<br>
 2. Second field should point to the folder in which you want the video to be downloaded.<br>
